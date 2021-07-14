@@ -36,7 +36,7 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            return session.get(User.class, id);
+            return session.find(User.class, id);
         } catch (NullPointerException e) {
             return  null;
         } finally {
@@ -80,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             @SuppressWarnings("unchecked")
-            Query query = session.createQuery("from User", User.class);
+            Query query = session.createQuery("from User");
             return (List<User>) query.getResultList();
         } catch (NullPointerException npe) {
             return new ArrayList<>();

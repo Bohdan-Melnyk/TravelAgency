@@ -32,7 +32,7 @@
                 <td>${user.lastName}</td>
                 <td>${user.email}</td>
                 <td>
-                    <a href = "<c:url value ="/management/getOrders/${user.id}"/>">See Orders</a>
+                    <a href = "<c:url value ="/management/order/${user.id}"/>">See Orders</a>
                     <a href="<c:url value="/management/addOrder/${user.id}"/>">New order</a>
                 </td>
             </tr>

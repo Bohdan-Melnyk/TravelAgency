@@ -24,11 +24,11 @@ public class HotelDAOImpl implements HotelDAO {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 //        try {
-            session.save(hotel);
+        session.save(hotel);
 //        } catch (NullPointerException e){
 //            e.getMessage();
 //        } finally {
-            transaction.commit();
+        transaction.commit();
 //        }
     }
 

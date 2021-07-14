@@ -10,10 +10,14 @@ import com.softserve.travelagency.service.RoomService;
 import com.softserve.travelagency.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -22,12 +26,16 @@ import java.util.List;
 @NoArgsConstructor
 public class ManagementController {
 
+    @Autowired
     private OrderService orderService;
 
+    @Autowired
     private UserService userService;
 
+    @Autowired
     private HotelService hotelService;
 
+    @Autowired
     private RoomService roomService;
 
 
@@ -52,7 +60,7 @@ public class ManagementController {
     @PostMapping("/addHotel")
     public String addHotelPost(@ModelAttribute("hotel") Hotel hotel){
         hotelService.create(hotel);
-        return "new-hotel";
+        return "hello-world";
     }
 
     @GetMapping("/addRoom")
@@ -76,32 +84,40 @@ public class ManagementController {
     }
 
     @GetMapping("/addOrder/{userId}")
-    public String addOrder(@PathVariable("userId") Long userId, Model model){
+    public String addOrder(@PathVariable("userId") Long userId,
+//                           @RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
+//                           @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
+                           Model model){
 //        model.addAttribute("user", userService.readById(userId));
         model.addAttribute("rooms", roomService.getAllRooms());
-        model.addAttribute("hotels", hotelService.getAllHotels());
-        model.addAttribute("countries", hotelService.getAllCountries());
-        model.addAttribute("order", new Order());
+//        model.addAttribute("arrivalDate", arrivalDate);
+//        model.addAttribute("departureDate", departureDate);
         return "new-order";
     }
 
     @PostMapping("/addOrder/{userId}")
-    public String addOrerPost(@ModelAttribute("hotel") Hotel hotel,
-                              @ModelAttribute("room") Room room,
+    public String addOrerPost(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
+                              @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
+                              @RequestParam("roomId") Long roomId,
                               @PathVariable("userId") Long id,
                               Model model){
+        Room room = roomService.readById(roomId);
         Order order = Order.builder().
                 room(room).
-                hotelinorder(hotel).
+                hotelinorder(room.getHotelinroom()).
                 owner(userService.readById(id)).
+                arrivalDate(arrivalDate).
+                departureDate(departureDate).
+                orderDate(LocalDateTime.now()).
                 build();
         orderService.create(order);
         return "hello-world";
     }
 
     @GetMapping("/order/{userId}")
-    public String allUserOrders(@PathVariable Long userId, Model model){
-        model.addAttribute("order", orderService.getAllOrdersByUserId(userId));
+    public String allUserOrders(@PathVariable("userId") Long userId, Model model){
+        model.addAttribute("orders", orderService.getAllOrdersByUserId(userId));
+        model.addAttribute("user", userService.readById(userId));
         return "orders";
     }
 }
