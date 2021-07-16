@@ -12,6 +12,7 @@
 </head>
 
 <body>
+<%@include file="/header.html" %>
 <table border="1">
     <thead>
     <tr>

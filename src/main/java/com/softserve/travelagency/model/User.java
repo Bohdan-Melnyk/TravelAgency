@@ -45,4 +45,7 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Order> orders;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }

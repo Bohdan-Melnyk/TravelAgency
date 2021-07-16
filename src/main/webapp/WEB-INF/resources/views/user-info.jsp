@@ -12,6 +12,7 @@
     <title>User info</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <form:form modelAttribute="user">
     <h1>Info</h1>
     <p>
