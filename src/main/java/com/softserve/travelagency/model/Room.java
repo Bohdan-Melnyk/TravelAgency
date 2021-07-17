@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 
@@ -23,8 +26,12 @@ public class Room {
     private Long id;
 
     @Column(name = "number", unique = true, nullable = false)
+    @Min(value = 1, message = "Room number can not be 0")
+    @Max(value = 10000, message = "Max allowed room number is 10000")
     private int number;
 
+    @Min(value = 1, message = "Price can not be 0")
+    @Max(value = 100000, message = "Max allowed price is 100000$")
     @Column(name = "prise")
     private double prise;
 
