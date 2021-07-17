@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -18,7 +17,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +35,6 @@ public class Order {
     private Room room;
 
     @NotNull
-    @FutureOrPresent(message = "Invalid departure or arrival date")
     @Column(name = "arrival_date")
     private LocalDate arrivalDate;
 

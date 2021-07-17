@@ -24,27 +24,11 @@
         </div>
 
         <div>
-            <c:choose>
-                <c:when test="${numberError.defaultMessage.contains('Failed to convert property value of')}">
-                    <div style="color:red;">Invalid type, please enter a number</div>
-                </c:when>
-                <c:otherwise>
-                    <div style="color:red;">${numberError.defaultMessage}</div>
-                </c:otherwise>
-            </c:choose>
             <label for="number">Number</label>
             <form:input path="number" id="Number"/>
         </div>
 
-        <div>
-            <c:choose>
-                <c:when test="${priceError.defaultMessage.contains('Failed to convert property value of')}">
-                    <div style="color:red;">Invalid type, please enter a number</div>
-                </c:when>
-                <c:otherwise>
-                    <div style="color:red;">${priceError.defaultMessage}</div>
-                </c:otherwise>
-            </c:choose>
+        <div >
             <label for="prise">Price</label>
             <form:input path="prise" id="Price"/>
         </div>
