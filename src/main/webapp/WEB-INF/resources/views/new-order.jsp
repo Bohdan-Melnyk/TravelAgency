@@ -9,7 +9,8 @@
 <body>
 <%@include file="/header.html" %>
 <%--<form:form action="/management/addOrder/${userId}" method="post" >--%>
-    <h1>Add order</h1>
+<h1>Add order</h1>
+<div style="color:red;">${error}</div>
 <%--    <div>--%>
 <%--        <label for="country">Country</label>--%>
 <%--        <select id="country" name="country">--%>
@@ -35,45 +36,45 @@
 <%--        </select>--%>
 <%--    </div>--%>
 
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Hotel</th>
-            <th>Price</th>
-            <th>Number</th>
-            <th>Country</th>
-            <th>Arrival</th>
-            <th>Departure</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="room" items="${rooms}">
-            <c:url var="bookLink" value="/management/addOrder/${userId}">
-                <c:param name="roomId" value="${room.id}"/>
-            </c:url>
-            <sf:form method="post" action="${bookLink}">
-                <tr>
-                    <td> ${room.id}</td>
-                    <td>${room.hotelinroom.name}</td>
-                    <td>${room.prise}</td>
-                    <td>${room.number}</td>
-                    <td>${room.hotelinroom.country}</td>
-                    <td>
-                        <input name="arrivalDate" value="${arrivalDate}">
-                    </td>
-                    <td>
-                        <input name="departureDate" value="${departureDate}">
-                    </td>
-                    <td>
-                        <button type="submit">Order</button>
-                    </td>
-                </tr>
-            </sf:form>
-        </c:forEach>
-        </tbody>
-    </table>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Hotel</th>
+        <th>Price</th>
+        <th>Number</th>
+        <th>Country</th>
+        <th>Arrival</th>
+        <th>Departure</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="room" items="${rooms}">
+        <c:url var="orderLink" value="/management/addOrder/${userId}">
+            <c:param name="roomId" value="${room.id}"/>
+        </c:url>
+        <sf:form method="post" action="${orderLink}">
+            <tr>
+                <td> ${room.id}</td>
+                <td>${room.hotelinroom.name}</td>
+                <td>${room.prise}</td>
+                <td>${room.number}</td>
+                <td>${room.hotelinroom.country}</td>
+                <td>
+                    <input type="date" name="arrivalDate" value="${arrivalDate}">
+                </td>
+                <td>
+                    <input type="date" name="departureDate" value="${departureDate}">
+                </td>
+                <td>
+                    <button type="submit">Order</button>
+                </td>
+            </tr>
+        </sf:form>
+    </c:forEach>
+    </tbody>
+</table>
 <%--<input name="arrivalDate" value="${arrivalDate}">--%>
 <%--<br>--%>
 <%--<input name="departureDate" value="${departureDate}">--%>

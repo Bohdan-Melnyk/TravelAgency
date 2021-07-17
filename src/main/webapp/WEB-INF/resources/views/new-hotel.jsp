@@ -10,16 +10,21 @@
 <%@include file="/header.html" %>
 <form:form action="/management/addHotel" method="post" modelAttribute="hotel">
     <p>
-        <label for="name">Name</label>
-        <form:input  path="name" id="Name"/>
+    <div style="color:red;">${error.defaultMessage}</div>
+
+    <br>
+    <label for="name">Name</label>
+    <form:input path="name" id="Name"/>
     </p>
     <p>
-        </label for="country">Country</label>
-        <form:input path="country" id="Country" />
+    <div style="color:red;">${countryError.defaultMessage}</div>
+    </label for="country">Country</label>
+    <form:input path="country" id="Country"/>
     </p>
     <p>
-        <label for="city">City</label>
-        <form:input path="city" id="city"/>
+    <div style="color:red;">${cityError.defaultMessage}</div>
+    <label for="city">City</label>
+    <form:input path="city" id="city"/>
     </p>
     <button type="submit">Add a hotel</button>
 </form:form>
