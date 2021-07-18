@@ -4,46 +4,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New Order</title>
+    <title>Rooms</title>
 </head>
 <body>
 <%@include file="/header.html" %>
 <%--<form:form action="/management/addOrder/${userId}" method="post" >--%>
 <h1>Add order</h1>
 <div style="color:red;">${error}</div>
-<%--    <div>--%>
-<%--        <label for="country">Country</label>--%>
-<%--        <select id="country" name="country">--%>
-<%--            <c:forEach var="country" items="${countries}">--%>
-<%--                <option value="${country}">${country}</option>--%>
-<%--            </c:forEach>--%>
-<%--        </select>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <label for="hotel">Hotel</label>--%>
-<%--        <select id="hotel" name="hotel">--%>
-<%--            <c:forEach var="hotel" items="${hotels}">--%>
-<%--                <option value="${hotel.name}">${hotel.name}</option>--%>
-<%--            </c:forEach>--%>
-<%--        </select>--%>
-<%--    </div>--%>
-<%--    <div>--%>
-<%--        <label for="room">Room</label>--%>
-<%--        <select id="room" name="room">--%>
-<%--            <c:forEach var="room" items="${rooms}">--%>
-<%--                <option value="${room.number}">${room.number}</option>--%>
-<%--            </c:forEach>--%>
-<%--        </select>--%>
-<%--    </div>--%>
-
+<div style="color:#ff0000;">${dateError}</div>
+<h3>Looking for a certain date?</h3>
+<c:url var="freeRooms" value="/management/checkRooms/${userId}/${hotelId}"></c:url>
+<sf:form method="get" action="${freeRooms}">
+    <input type="date" name="arrivalDate" value="${arrivalDate}">
+    <input type="date" name="departureDate" value="${departureDate}">
+    <button type="submit">Check</button>
+</sf:form>
 <table border="1">
     <thead>
     <tr>
-        <th>Id</th>
-        <th>Hotel</th>
-        <th>Price</th>
         <th>Number</th>
-        <th>Country</th>
+        <th>Price per night</th>
         <th>Arrival</th>
         <th>Departure</th>
         <th>Action</th>
@@ -51,16 +31,13 @@
     </thead>
     <tbody>
     <c:forEach var="room" items="${rooms}">
-        <c:url var="orderLink" value="/management/addOrder/${userId}">
+        <c:url var="bookLink" value="/management/addOrder/${userId}/${hotelId}">
             <c:param name="roomId" value="${room.id}"/>
         </c:url>
-        <sf:form method="post" action="${orderLink}">
+        <sf:form method="post" action="${bookLink}">
             <tr>
-                <td> ${room.id}</td>
-                <td>${room.hotelinroom.name}</td>
-                <td>${room.prise}</td>
                 <td>${room.number}</td>
-                <td>${room.hotelinroom.country}</td>
+                <td>${room.prise}</td>
                 <td>
                     <input type="date" name="arrivalDate" value="${arrivalDate}">
                 </td>

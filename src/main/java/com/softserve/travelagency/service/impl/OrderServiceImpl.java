@@ -5,10 +5,12 @@ import com.softserve.travelagency.model.Order;
 import com.softserve.travelagency.service.OrderService;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private final OrderDAO orderDAO;

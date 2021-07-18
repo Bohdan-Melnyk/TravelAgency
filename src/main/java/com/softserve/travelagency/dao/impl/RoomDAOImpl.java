@@ -9,8 +9,11 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -101,4 +104,30 @@ public class RoomDAOImpl implements RoomDAO {
             transaction.commit();
         }
     }
+
+    @Override
+    public boolean isRoomAvailable(Long id, LocalDate arrival, LocalDate departure) {
+        return readById(id).getOrders().stream().noneMatch(order -> arrival.isBefore(order.getArrivalDate()) && departure.isBefore(order.getArrivalDate())
+                || arrival.isAfter(order.getDepartureDate()) && departure.isAfter(order.getDepartureDate()));
+    }
+
+    @Override
+    public List<Room> getAvailableRoomsInHotelAtCertainDate(LocalDate arrival, LocalDate departure, Long hotelId) {
+        var collect = getRoomsByHotelId(hotelId).stream()
+                .map(room -> room.getOrders())
+                .flatMap(Collection::stream)
+                .filter(order -> isRoomAvailable(order.getRoom().getId(), arrival, departure))
+                .map(order -> order.getRoom())
+                .distinct()
+                .map(room -> room.getNumber())
+                .collect(Collectors.toSet());
+        List<Room> list = getRoomsByHotelId(hotelId);
+        for (int i = 0; i < list.size(); i++) {
+            if(collect.contains(list.get(i).getNumber())){
+                list.remove(i);
+            }
+        }
+        return list;
+    }
+
 }

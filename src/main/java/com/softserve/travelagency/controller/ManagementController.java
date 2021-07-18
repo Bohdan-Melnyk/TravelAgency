@@ -61,12 +61,14 @@ public class ManagementController {
     }
 
     @GetMapping("/addHotel")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addHotel(Model model) {
         model.addAttribute("hotel", new Hotel());
         return "new-hotel";
     }
 
     @PostMapping("/addHotel")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addHotelPost(@Valid @ModelAttribute("hotel") Hotel hotel, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             hotelService.create(hotel);
@@ -86,6 +88,7 @@ public class ManagementController {
     }
 
     @GetMapping("/addRoom")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addRoom(Model model) {
         model.addAttribute("room", new Room());
         model.addAttribute("hotels", hotelService.getAllHotels());
@@ -93,6 +96,7 @@ public class ManagementController {
     }
 
     @PostMapping("/addRoom")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addRoomPost(@RequestParam("hotelName") String hotelName,
                               @Valid @ModelAttribute("room") Room room, BindingResult bindingResult,
                               Model model) {
@@ -109,30 +113,57 @@ public class ManagementController {
         }
     }
 
-    @GetMapping("/addOrder/{userId}")
-    public String addOrder(@PathVariable("userId") Long userId,
-//                           @RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
-//                           @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
-                           Model model) {
-//        model.addAttribute("user", userService.readById(userId));
-        model.addAttribute("rooms", roomService.getAllRooms());
-//        model.addAttribute("arrivalDate", arrivalDate);
-//        model.addAttribute("departureDate", departureDate);
+    @GetMapping("/getHotels/{userId}")
+    @PreAuthorize("hasAuthority('developers:admin')")
+    public String getHotels(@PathVariable("userId") Long userId, Model model) {
+        model.addAttribute("userId", userId);
+        model.addAttribute("hotels", hotelService.getAllHotels());
+        return "get-hotels";
+    }
+
+    @GetMapping("/getRooms/{userId}/{hotelId}")
+    @PreAuthorize("hasAuthority('developers:admin')")
+    public String getHotelRooms(@PathVariable("userId") Long userId,@PathVariable("hotelId") Long hotelId, Model model) {
+        model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
+        model.addAttribute("userId", userId);
         return "new-order";
     }
 
-    @Validated
-    @PostMapping("/addOrder/{userId}")
+    @GetMapping("/checkRooms/{userId}/{hotelId}")
+    public String checkRooms(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
+                             @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
+                             @PathVariable("hotelId") Long hotelId,
+                             @PathVariable("userId") Long userId,
+                             Model model) {
+        model.addAttribute("userId", userId);
+        model.addAttribute("rooms", roomService.getAvailableRoomsInHotelAtCertainDate(arrivalDate, departureDate, hotelId));
+        return "new-order";
+    }
+
+    @GetMapping("/addOrder/{userId}/{hotelId}")
+    public String addOrder(@PathVariable("hotelId") Long hotelId, Model model) {
+        model.addAttribute("rooms", roomService.getAllRooms());
+        return "new-order";
+    }
+
+    @PostMapping("/addOrder/{userId}/{hotelId}")
     public String addOrderPost(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
-                              @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
-                              @RequestParam("roomId") Long roomId,
-                              @PathVariable("userId") Long id,
-                              Model model) {
-        if (departureDate == null || arrivalDate == null || arrivalDate.compareTo(departureDate) >= 0 || arrivalDate.compareTo(LocalDate.now()) < 0 || departureDate.compareTo(LocalDate.now()) < 0) {
+                               @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
+                               @RequestParam("roomId") Long roomId,
+                               @PathVariable("userId") Long id,
+                               @PathVariable("hotelId") Long hotelId,
+                               Model model) {
+        if (departureDate == null || arrivalDate == null || arrivalDate.compareTo(departureDate) >= 0
+                || arrivalDate.compareTo(LocalDate.now()) < 0 || departureDate.compareTo(LocalDate.now()) < 0) {
             model.addAttribute("error", "Invalid departure or arrival date");
-            model.addAttribute("rooms", roomService.getAllRooms());
+            model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
             return "new-order";
-        } else {
+        }else if(!roomService.isRoomAvailableInCertainHotel(roomId, arrivalDate, departureDate)){
+            model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
+            model.addAttribute("dateError", "This date is already taken");
+            return "new-order";
+        }
+        else {
             Room room = roomService.readById(roomId);
             Order order = Order.builder().
                     room(room).
@@ -149,6 +180,7 @@ public class ManagementController {
     }
 
     @GetMapping("/order/{userId}")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String allUserOrders(@PathVariable("userId") Long userId, Model model) {
         model.addAttribute("orders", orderService.getAllOrdersByUserId(userId));
         model.addAttribute("user", userService.readById(userId));
