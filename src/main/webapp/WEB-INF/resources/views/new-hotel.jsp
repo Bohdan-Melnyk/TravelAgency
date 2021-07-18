@@ -7,6 +7,7 @@
     <title>New Hotel</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <form:form action="/management/addHotel" method="post" modelAttribute="hotel">
     <p>
         <label for="name">Name</label>

@@ -6,6 +6,7 @@
     <title>Orers</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <h1>Orders for ${user.firstName} ${user.lastName}</h1>
 <br>
 <table border="1">
@@ -16,7 +17,7 @@
         <th>Room</th>
         <th>Arrival Date</th>
         <th>Departure Date</th>
-        <th>OrderDate</th>
+        <th>Price</th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +29,7 @@
             <td>${order.room.number}</td>
             <td>${order.arrivalDate}</td>
             <td>${order.departureDate}</td>
-            <td>${order.orderDate}</td>
+            <td>${order.room.prise}</td>
         </tr>
     </sf:form>
 </c:forEach>

@@ -10,6 +10,7 @@
     <title>Add room</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <form:form action="/management/addRoom" method="post" modelAttribute="room" methodParam="hotelName">
     <p>${message}</p>
     <table>

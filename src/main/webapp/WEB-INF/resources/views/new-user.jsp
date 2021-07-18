@@ -8,6 +8,7 @@
     <title>New User</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <form:form action="/management/addUser" method="post" modelAttribute="user">
     <p>
         <label for="firstName">Name</label>

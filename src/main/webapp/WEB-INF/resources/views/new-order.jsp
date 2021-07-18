@@ -7,6 +7,7 @@
     <title>New Order</title>
 </head>
 <body>
+<%@include file="/header.html" %>
 <%--<form:form action="/management/addOrder/${userId}" method="post" >--%>
     <h1>Add order</h1>
 <%--    <div>--%>
