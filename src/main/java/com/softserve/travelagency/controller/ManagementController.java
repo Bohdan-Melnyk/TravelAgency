@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,12 +46,14 @@ public class ManagementController {
     private RoomService roomService;
 
     @GetMapping("/addUser")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "new-user";
     }
 
     @PostMapping("/addUser")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String addUserPost(@ModelAttribute("user") User user, BindingResult bindingResult) {
 
         userService.create(user);

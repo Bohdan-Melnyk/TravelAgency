@@ -3,6 +3,7 @@ package com.softserve.travelagency.controller;
 
 import com.softserve.travelagency.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('developers:admin')")
     public String allUsers(Model model){
         model.addAttribute("myusers", userService.getAllUsers());
         return "users";
