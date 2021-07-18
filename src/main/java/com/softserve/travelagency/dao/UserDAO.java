@@ -3,6 +3,7 @@ package com.softserve.travelagency.dao;
 import com.softserve.travelagency.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDAO {
     void create(User user);
@@ -11,7 +12,7 @@ public interface UserDAO {
 
     void delete(Long id);
 
-    User getUserByEmail(String email);
+    Optional<User> getUserByEmail(String email);
 
     List<User> getAllUsers();
 }

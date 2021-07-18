@@ -17,11 +17,11 @@ public class SecurityUser implements UserDetails {
     private final List<SimpleGrantedAuthority> authorities;
     private boolean isActive;
 
-    public SecurityUser(String firstName, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
+    public SecurityUser(String firstName, String password, List<SimpleGrantedAuthority> authorities) {
         this.firstName = firstName;
         this.password = password;
         this.authorities = authorities;
-        this.isActive = isActive;
+        this.isActive = isActive();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return password;
     }
 
     @Override

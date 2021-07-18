@@ -20,7 +20,7 @@ public class UserDetailsServiseImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> user = Optional.ofNullable(userDAO.getUserByEmail(email));
+        Optional<User> user = userDAO.getUserByEmail(email);
         if (user.isEmpty())
             throw new UsernameNotFoundException("User not found");
         return SecurityUser.fromUser(user.get());
