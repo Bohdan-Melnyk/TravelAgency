@@ -38,6 +38,7 @@ public class RegistrationController {
         user.setStatus(Status.ACTIVE);
 
         userService.create(user);
+
             return "register";
 
 
