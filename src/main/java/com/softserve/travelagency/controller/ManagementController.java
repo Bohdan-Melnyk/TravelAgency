@@ -56,7 +56,7 @@ public class ManagementController {
     @PreAuthorize("hasAuthority('developers:admin')")
     public String addUserPost(@ModelAttribute("user") User user, BindingResult bindingResult) {
 
-        userService.addUser(user);
+        userService.create(user);
         return "hello-world";
     }
 
