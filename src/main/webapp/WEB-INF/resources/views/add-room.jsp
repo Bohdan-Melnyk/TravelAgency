@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@include file="/header.html" %>
-<form:form action="/management/addRoom" method="post" modelAttribute="room" methodParam="hotelName">
+<form:form action="/management/addRoom" method="post" modelAttribute="room">
     <p>${message}</p>
     <table>
         <div>

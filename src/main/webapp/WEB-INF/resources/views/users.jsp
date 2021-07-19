@@ -34,7 +34,6 @@
                 <td>${user.email}</td>
                 <td>
                     <a href = "<c:url value ="/management/order/${user.id}"/>">See Orders</a>
-                    <a href="<c:url value="/management/addOrder/${user.id}"/>">New order</a>
                 </td>
             </tr>
         </sf:form>

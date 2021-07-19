@@ -25,7 +25,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "number", unique = true, nullable = false)
+    @Column(name = "number", nullable = false)
     @Min(value = 1, message = "Room number can not be 0")
     @Max(value = 10000, message = "Max allowed room number is 10000")
     private int number;

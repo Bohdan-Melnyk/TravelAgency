@@ -140,44 +140,7 @@ public class ManagementController {
         return "new-order";
     }
 
-    @GetMapping("/addOrder/{userId}/{hotelId}")
-    public String addOrder(@PathVariable("hotelId") Long hotelId, Model model) {
-        model.addAttribute("rooms", roomService.getAllRooms());
-        return "new-order";
-    }
 
-    @PostMapping("/addOrder/{userId}/{hotelId}")
-    public String addOrderPost(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
-                               @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
-                               @RequestParam("roomId") Long roomId,
-                               @PathVariable("userId") Long id,
-                               @PathVariable("hotelId") Long hotelId,
-                               Model model) {
-        if (departureDate == null || arrivalDate == null || arrivalDate.compareTo(departureDate) >= 0
-                || arrivalDate.compareTo(LocalDate.now()) < 0 || departureDate.compareTo(LocalDate.now()) < 0) {
-            model.addAttribute("error", "Invalid departure or arrival date");
-            model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
-            return "new-order";
-        }else if(!roomService.isRoomAvailableInCertainHotel(roomId, arrivalDate, departureDate)){
-            model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
-            model.addAttribute("dateError", "This date is already taken");
-            return "new-order";
-        }
-        else {
-            Room room = roomService.readById(roomId);
-            Order order = Order.builder().
-                    room(room).
-                    hotelinorder(room.getHotelinroom()).
-                    owner(userService.readById(id)).
-                    arrivalDate(arrivalDate).
-                    departureDate(departureDate).
-                    orderDate(LocalDateTime.now()).
-                    build();
-            orderService.create(order);
-            return "hello-world";
-        }
-
-    }
 
     @GetMapping("/order/{userId}")
     @PreAuthorize("hasAuthority('developers:admin')")

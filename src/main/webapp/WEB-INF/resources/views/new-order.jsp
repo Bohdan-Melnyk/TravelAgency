@@ -31,10 +31,11 @@
     </thead>
     <tbody>
     <c:forEach var="room" items="${rooms}">
-        <c:url var="bookLink" value="/management/addOrder/${userId}/${hotelId}">
+        <c:url var="orderLink" value="/user/addOrder">
             <c:param name="roomId" value="${room.id}"/>
+            <c:param name="hotelId" value="${room.hotelinroom.id}"/>
         </c:url>
-        <sf:form method="post" action="${bookLink}">
+        <sf:form method="post" action="${orderLink}">
             <tr>
                 <td>${room.number}</td>
                 <td>${room.prise}</td>

@@ -39,7 +39,7 @@ public class RegistrationController {
 
         userService.create(user);
 
-            return "register";
+            return "login";
 
 
       //  return "redirect:/auth/login";

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: БОГДАН
-  Date: 16.07.2021
-  Time: 22:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,6 +5,25 @@
 </head>
 <body>
 <%@include file="/header.html" %>
-Success
+<form class="btn__item" action="/auth/logout" method="POST">
+    <button class="btn" type="submit">Logout </button>
+</form>
+<h1>Welcome</h1>
+
+<form class="btn__item" action="/management/addUser" method="POST">
+    <button class="btn" type="submit">Add user </button>
+</form>
+<form class="btn__item" action="/user/all" method="get">
+    <button class="btn" type="submit">All users </button>
+</form>
+<form class="btn__item" action="/user/addOrder/" method="get">
+    <button class="btn" type="submit">Make an Order </button>
+</form>
+<form class="btn__item" action="/management/addHotel" method="get">
+    <button class="btn" type="submit">Add Hotel </button>
+</form>
+<form class="btn__item" action="/management/addRoom" method="get">
+    <button class="btn" type="submit">Add room </button>
+</form>
 </body>
 </html>
