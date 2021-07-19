@@ -24,15 +24,14 @@ public class UserServiseImpl implements UserService {
 
     @Override
     public boolean create(User user) {
-       /* Optional<User> userDB = userDAO.getUserByEmail(user.getEmail());
+        Optional<User> userDB = userDAO.getUserByEmail(user.getEmail());
 
         if (userDB.isPresent()) {
             return false;
-        }*/
+        }
 
         user.setRole(Role.USER);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-
         userDAO.create(user);
         return true;
     }

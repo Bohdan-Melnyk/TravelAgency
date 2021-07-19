@@ -63,17 +63,20 @@ public class UserDAOImpl implements UserDAO {
     public Optional<User> getUserByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
+
         try {
-            Query query = session.createNativeQuery("from User U where u.email =:email", User.class);
+            Query query = session.createQuery("FROM User O WHERE O.email = :email", User.class);
             query.setParameter("email", email);
             User user = (User) query.uniqueResult();
             return Optional.of(user);
-        } catch (NullPointerException e) {
-            return null;
+        } catch (NullPointerException npe) {
+            return Optional.empty();
         } finally {
             transaction.commit();
         }
     }
+
+
 
     @Override
     public List<User> getAllUsers() {
