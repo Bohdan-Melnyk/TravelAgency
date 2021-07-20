@@ -58,6 +58,8 @@ public class UserController {
     }
 
 
+
+
     @GetMapping("/checkRooms/{hotelId}")
     @PreAuthorize("hasAuthority('developers:user')")
     public String checkRooms(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
@@ -87,7 +89,7 @@ public class UserController {
             model.addAttribute("error", "Invalid departure or arrival date");
             model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
             return "new-order";
-        } else if (roomService.isRoomAvailableInCertainHotel(roomId, arrivalDate, departureDate)) {
+        } else if (!roomService.isRoomAvailableInCertainHotel(roomId, arrivalDate, departureDate)) {
             model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
             model.addAttribute("dateError", "This date is already taken");
             return "new-order";
@@ -102,7 +104,7 @@ public class UserController {
                     orderDate(LocalDateTime.now()).
                     build();
             orderService.create(order);
-            return "hello-world";
+            return "success";
         }
 
 
