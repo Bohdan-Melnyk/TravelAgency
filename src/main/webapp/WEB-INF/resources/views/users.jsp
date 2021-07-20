@@ -10,9 +10,13 @@
 <head>
     <title>Users</title>
 </head>
-
+<form class="btn__item" action="/auth/logout" method="POST">
+    <button class="btn" type="submit">Logout </button>
+</form>
 <body>
-<%@include file="/header.html" %>
+<form class="btn__item" action="/auth/success" method="get">
+    <button class="btn" type="submit">Home </button>
+</form>
 <table border="1">
     <thead>
     <tr>
@@ -34,7 +38,6 @@
                 <td>${user.email}</td>
                 <td>
                     <a href = "<c:url value ="/management/order/${user.id}"/>">See Orders</a>
-                    <a href="<c:url value="/management/addOrder/${user.id}"/>">New order</a>
                 </td>
             </tr>
         </sf:form>

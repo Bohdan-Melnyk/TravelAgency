@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -30,10 +31,10 @@ public class User {
 
     @Pattern(regexp = "[A-Z][a-z]+",
             message = "Must start with a capital letter followed by one or more lowercase letters")
-    @Column(name = "lastname",nullable = false)
+    @Column(name = "lastname", nullable = false)
     private String lastName;
 
-//    @Pattern(regexp = "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}", message = "Must be a valid e-mail address")
+    @Email(message = "Invalid email")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -45,7 +46,11 @@ public class User {
     @OneToMany(mappedBy = "owner")
     private List<Order> orders;
 
+    @Column
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

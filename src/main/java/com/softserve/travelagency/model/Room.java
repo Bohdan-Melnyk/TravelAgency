@@ -7,6 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 
@@ -22,9 +26,13 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "number", unique = true, nullable = false)
+    @Column(name = "number", nullable = false)
+    @Min(value = 1, message = "Room number can not be 0")
+    @Max(value = 10000, message = "Max allowed room number is 10000")
     private int number;
 
+    @Min(value = 1, message = "Price can not be 0")
+    @Max(value = 100000, message = "Max allowed price is 100000$")
     @Column(name = "prise")
     private double prise;
 
@@ -32,7 +40,7 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotelinroom;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", cascade = CascadeType.ALL)
     private List<Order> orders;
 
 }

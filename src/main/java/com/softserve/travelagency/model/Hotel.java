@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
@@ -21,12 +22,15 @@ public class Hotel {
     private Long id;
 
     @Column
+    @Pattern(regexp = "^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$", message = "Invalid country name")
     private String country;
 
     @Column
+    @Pattern(regexp = "^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$", message = "Invalid city name")
     private String city;
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Size(min = 3, max = 120, message = "Invalid hotel name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @OneToMany(mappedBy = "hotelinroom", cascade = CascadeType.ALL)

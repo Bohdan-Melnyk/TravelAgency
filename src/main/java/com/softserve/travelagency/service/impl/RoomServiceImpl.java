@@ -5,11 +5,14 @@ import com.softserve.travelagency.model.Room;
 import com.softserve.travelagency.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class RoomServiceImpl implements RoomService {
 
     private final RoomDAO roomDAO;
@@ -50,5 +53,16 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<Room> getAllRooms() {
         return roomDAO.getAllRooms();
+    }
+
+    @Override
+    public boolean isRoomAvailableInCertainHotel(Long id, LocalDate arrival, LocalDate departure) {
+        return roomDAO.isRoomAvailable(id, arrival, departure);
+    }
+
+
+    @Override
+    public List<Room> getAvailableRoomsInHotelAtCertainDate(LocalDate arrival, LocalDate departure, Long hotelId) {
+        return roomDAO.getAvailableRoomsInHotelAtCertainDate(arrival, departure, hotelId);
     }
 }
