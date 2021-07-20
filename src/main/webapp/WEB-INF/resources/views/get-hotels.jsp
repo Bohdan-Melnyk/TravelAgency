@@ -7,10 +7,7 @@
     <title>Hotels</title>
 </head>
 <body>
-<%@include file="/header.html" %>
 <h1>Add order</h1>
-<div style="color:red;">${error}</div>
-<div style="color:red;">${dateError}</div>
 <table border="1">
     <thead>
     <tr>
@@ -22,7 +19,7 @@
     </thead>
     <tbody>
     <c:forEach var="hotel" items="${hotels}">
-        <c:url var="bookLink" value="/management/getRooms/${userId}/${hotel.id}"></c:url>
+        <c:url var="bookLink" value="/user/getRooms/${hotel.id}"/>
         <sf:form method="get" action="${bookLink}">
             <tr>
                 <td>${hotel.name}</td>

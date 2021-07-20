@@ -67,11 +67,11 @@ public class RoomDAOImpl implements RoomDAO {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Query query = session.createNativeQuery("from rooms R where R.hotel.id =: id",Room.class);
+            Query query = session.createNativeQuery("select * from rooms R where R.hotel_id =:id", Room.class);
             query.setParameter("id", id);
             return query.getResultList();
         } catch (NullPointerException e) {
-            return  new ArrayList<>();
+            return new ArrayList<>();
         } finally {
             transaction.commit();
         }
@@ -108,7 +108,7 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public boolean isRoomAvailable(Long id, LocalDate arrival, LocalDate departure) {
         return readById(id).getOrders().stream().noneMatch(order -> arrival.isBefore(order.getArrivalDate()) && departure.isBefore(order.getArrivalDate())
-                || arrival.isAfter(order.getDepartureDate()) && departure.isAfter(order.getDepartureDate()));
+                                                                    || arrival.isAfter(order.getDepartureDate()) && departure.isAfter(order.getDepartureDate()));
     }
 
     @Override

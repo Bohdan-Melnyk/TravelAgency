@@ -32,7 +32,7 @@ public class Order {
     @JoinColumn(name = "hotel_id")
     private Hotel hotelinorder;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     private Room room;
 

@@ -3,10 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Orers</title>
+    <title>Orders</title>
 </head>
 <body>
-<%@include file="/header.html" %>
 <h1>Orders for ${user.firstName} ${user.lastName}</h1>
 <br>
 <table border="1">

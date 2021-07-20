@@ -40,7 +40,7 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotelinroom;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "room", cascade = CascadeType.ALL)
     private List<Order> orders;
 
 }

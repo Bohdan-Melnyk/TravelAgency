@@ -103,33 +103,6 @@ public class ManagementController {
         }
     }
 
-    @GetMapping("/getHotels/{userId}")
-    @PreAuthorize("hasAuthority('developers:admin')")
-    public String getHotels(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("userId", userId);
-        model.addAttribute("hotels", hotelService.getAllHotels());
-        return "get-hotels";
-    }
-
-    @GetMapping("/getRooms/{userId}/{hotelId}")
-    @PreAuthorize("hasAuthority('developers:admin')")
-    public String getHotelRooms(@PathVariable("userId") Long userId,@PathVariable("hotelId") Long hotelId, Model model) {
-        model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
-        model.addAttribute("userId", userId);
-        return "new-order";
-    }
-
-    @GetMapping("/checkRooms/{userId}/{hotelId}")
-    public String checkRooms(@RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDate,
-                             @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate,
-                             @PathVariable("hotelId") Long hotelId,
-                             @PathVariable("userId") Long userId,
-                             Model model) {
-        model.addAttribute("userId", userId);
-        model.addAttribute("rooms", roomService.getAvailableRoomsInHotelAtCertainDate(arrivalDate, departureDate, hotelId));
-        return "new-order";
-    }
-
 
 
     @GetMapping("/order/{userId}")
