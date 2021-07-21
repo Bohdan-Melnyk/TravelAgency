@@ -97,8 +97,8 @@ public class HotelDAOImpl implements HotelDAO {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
-            Query query = session.createQuery("from Hotel H where lower(H.country) = lower(:country)");
-            query.setParameter("country", country);
+            Query query = session.createQuery("from Hotel H where lower(H.country) like lower(:country)");
+            query.setParameter("country", country+"%");
             return query.getResultList();
         } catch (NullPointerException e){
             return new ArrayList<>();

@@ -21,6 +21,9 @@
     <input  name="countryName" value="${countryName}">
     <button type="submit">Check</button>
 </sf:form>
+<form class="btn__item" action="/user/getHotels" method="get">
+    <button class="btn" type="submit">Reset </button>
+</form>
 <table border="1">
     <thead>
     <tr>
