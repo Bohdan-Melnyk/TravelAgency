@@ -109,9 +109,24 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean isRoomAvailable(Long id, LocalDate arrival, LocalDate departure) {
-        return readById(id).getOrders().stream().noneMatch(order -> arrival.isBefore(order.getArrivalDate()) && departure.isBefore(order.getArrivalDate())
-                                                                    || arrival.isAfter(order.getDepartureDate()) && departure.isAfter(order.getDepartureDate()));
-//        return getAvailableRoomsInHotelAtCertainDate(arrival, departure, id).
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+
+        @SuppressWarnings("unchecked")
+        Query query = session.createQuery("FROM Room R " +
+                                          "WHERE R.id = :id " +
+                                          "AND R.id NOT IN " +
+                                          "(SELECT O.room.id FROM Order O " +
+                                          "WHERE :arrivalDate BETWEEN O.arrivalDate AND O.departureDate " +
+                                          "OR :departureDate BETWEEN O.arrivalDate AND O.departureDate " +
+                                          "OR O.arrivalDate BETWEEN :arrivalDate AND :departureDate " +
+                                          "OR O.departureDate BETWEEN :arrivalDate AND :departureDate)", Room.class);
+        query.setParameter("id", id);
+        query.setParameter("arrivalDate", arrival);
+        query.setParameter("departureDate", departure);
+        var resultList = query.getResultList();
+        transaction.commit();
+        return resultList.size() > 0;
     }
 
     @Override

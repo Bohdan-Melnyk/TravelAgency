@@ -57,8 +57,12 @@ public class UserController {
         return "new-order";
     }
 
-
-
+    @GetMapping("/checkHotels")
+    @PreAuthorize("hasAuthority('developers:user')")
+    public String findHotelByCountry(@RequestParam("countryName") String countryName, Model model) {
+        model.addAttribute("hotels", hotelService.getHotelsByCountry(countryName));
+        return "get-hotels";
+    }
 
     @GetMapping("/checkRooms/{hotelId}")
     @PreAuthorize("hasAuthority('developers:user')")
@@ -90,6 +94,7 @@ public class UserController {
             model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
             return "new-order";
         } else if (!roomService.isRoomAvailableInCertainHotel(roomId, arrivalDate, departureDate)) {
+
             model.addAttribute("rooms", roomService.getRoomsByHotelId(hotelId));
             model.addAttribute("dateError", "This date is already taken");
             return "new-order";

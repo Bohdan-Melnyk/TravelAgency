@@ -14,6 +14,16 @@
     <button class="btn" type="submit">Home </button>
 </form>
 <h1>Add order</h1>
+<h3>Find hotel by country</h3>
+<h4>Enter a country name</h4>
+<c:url var="checkByCountry" value="/user/checkHotels"></c:url>
+<sf:form method="get" action="${checkByCountry}">
+    <input  name="countryName" value="${countryName}">
+    <button type="submit">Check</button>
+</sf:form>
+<form class="btn__item" action="/user/getHotels" method="get">
+    <button class="btn" type="submit">Reset </button>
+</form>
 <table border="1">
     <thead>
     <tr>
