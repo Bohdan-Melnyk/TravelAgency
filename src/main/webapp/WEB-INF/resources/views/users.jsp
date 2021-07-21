@@ -3,21 +3,27 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%--<%@ include file="/WEB-INF/jsp/include.jsp" %>--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <html>
 
 <head>
     <title>Users</title>
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
-<form class="btn__item" action="/auth/logout" method="POST">
-    <button class="btn" type="submit">Logout </button>
-</form>
+
 <body>
-<form class="btn__item" action="/auth/success" method="get">
-    <button class="btn" type="submit">Home </button>
+<div class="form_table">
+    <form action="/auth/logout" method="POST">
+        <button style="background: #EF3B3A" type="submit">Logout </button>
+    </form>
+<form action="/auth/success" method="get">
+    <button style="background: lightblue" type="submit">Home </button>
 </form>
-<table border="1">
+    <h2>All registered users</h2>
+<table class="tables" border="1">
     <thead>
     <tr>
         <th>Id</th>
@@ -44,6 +50,7 @@
     </c:forEach>
     </tbody>
 </table>
+</div>
 </body>
 
 </html>

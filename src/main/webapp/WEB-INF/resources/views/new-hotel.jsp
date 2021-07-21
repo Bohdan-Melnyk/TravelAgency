@@ -5,38 +5,43 @@
 <html>
 <head>
     <title>New Hotel</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-<form class="btn__item" action="/auth/logout" method="POST">
-    <button class="btn" type="submit">Logout </button>
+<div class="login-page">
+    <div class="form">
+<form action="/auth/logout" method="POST">
+    <button style="background: #EF3B3A" type="submit">Logout </button>
 </form>
-<form class="btn__item" action="/auth/success" method="get">
-    <button class="btn" type="submit">Home </button>
+<form action="/auth/success" method="get">
+    <button style="background: lightblue" type="submit">Home </button>
 </form>
-<form:form action="/management/addHotel" method="post" modelAttribute="hotel">
-    <p>
-        <br>
-        <label for="name">Name</label>
-        <form:input path="name" id="Name"/>
-        <span style="color: red">
-        <form:errors path="name"/>
-    </span>
-    </p>
-    <p>
-        </label for="country">Country</label>
-        <form:input path="country" id="Country"/>
-        <span style="color: red">
-        <form:errors path="country"/>
-    </span>
-    </p>
-    <p>
-        <label for="city">City</label>
-        <form:input path="city" id="city"/>
-        <span style="color: red">
-        <form:errors path="city"/>
-    </span>
-    </p>
-    <button type="submit">Add a hotel</button>
-</form:form>
+        <form:form action="/management/addHotel" method="post" modelAttribute="hotel">
+
+            <h2>Please Add hotel</h2>
+            <p>
+            <div style="color:red;">${error.defaultMessage}</div>
+
+            <br>
+            <label for="name">Name</label>
+            <form:input path="name" id="Name"/>
+            </p>
+            <p>
+            <div style="color:red;">${countryError.defaultMessage}</div>
+            </label for="country">Country</label>
+            <form:input path="country" id="Country"/>
+            </p>
+            <p>
+            <div style="color:red;">${cityError.defaultMessage}</div>
+            <label for="city">City</label>
+            <form:input path="city" id="city"/>
+            </p>
+            <button type="submit">Add a hotel</button>
+        </form:form>
+    </div>
+</div>
+
 </body>
 </html>

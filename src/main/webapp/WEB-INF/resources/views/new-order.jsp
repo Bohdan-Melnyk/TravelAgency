@@ -2,16 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Rooms</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-<form class="btn__item" action="/auth/logout" method="POST">
-    <button class="btn" type="submit">Logout </button>
+
+<div class="form_table">
+<form action="/auth/logout" method="POST">
+    <button style="background: #EF3B3A" type="submit">Logout </button>
 </form>
-<form class="btn__item" action="/auth/success" method="get">
-    <button class="btn" type="submit">Home </button>
+<form  action="/auth/success" method="get">
+    <button style="background: lightgreen" type="submit">Home </button>
 </form>
 <h1>Add order</h1>
 <div style="color:red;">${error}</div>
@@ -23,7 +29,7 @@
     <input type="date" name="departureDate" value="${departureDate}">
     <button type="submit">Check</button>
 </sf:form>
-<table border="1">
+<table class="tables" border="1">
     <thead>
     <tr>
         <th>Number</th>
@@ -60,5 +66,6 @@
 <%--<br>--%>
 <%--<input name="departureDate" value="${departureDate}">--%>
 <%----%>
+</div>
 </body>
 </html>

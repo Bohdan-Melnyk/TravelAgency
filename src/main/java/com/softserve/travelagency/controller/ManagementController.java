@@ -45,7 +45,7 @@ public class ManagementController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping("/addUser")
+ /*   @GetMapping("/addUser")
     @PreAuthorize("hasAuthority('developers:admin')")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
@@ -58,7 +58,7 @@ public class ManagementController {
 
         userService.create(user);
         return "hello-world";
-    }
+    }*/
 
     @GetMapping("/addHotel")
     @PreAuthorize("hasAuthority('developers:admin')")
@@ -72,7 +72,7 @@ public class ManagementController {
     public String addHotelPost(@Valid @ModelAttribute("hotel") Hotel hotel, BindingResult bindingResult, Model model) {
         if (!bindingResult.hasErrors()) {
             hotelService.create(hotel);
-            return "hello-world";
+            return "success";
         } else {
             model.addAttribute("error", bindingResult.getAllErrors());
         }
@@ -96,7 +96,7 @@ public class ManagementController {
             Hotel hotel = hotelService.getHotelByName(hotelName);
             room.setHotelinroom(hotel);
             roomService.create(room);
-            return "hello-world";
+            return "success";
         } else {
             model.addAttribute("hotels", hotelService.getAllHotels());
             return "add-room";

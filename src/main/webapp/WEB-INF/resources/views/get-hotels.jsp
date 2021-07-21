@@ -2,16 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Hotels</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-<form class="btn__item" action="/auth/logout" method="POST">
-    <button class="btn" type="submit">Logout </button>
+<div class="form">
+<form action="/auth/logout" method="POST">
+    <button style="background: #EF3B3A" type="submit">Logout </button>
 </form>
-<form class="btn__item" action="/auth/success" method="get">
-    <button class="btn" type="submit">Home </button>
+<form action="/auth/success" method="get">
+    <button style="background: lightblue" type="submit">Home </button>
 </form>
 <h1>Add order</h1>
 <h3>Find hotel by country</h3>
@@ -22,9 +27,9 @@
     <button type="submit">Check</button>
 </sf:form>
 <form class="btn__item" action="/user/getHotels" method="get">
-    <button class="btn" type="submit">Reset </button>
+    <button style="background: lightblue" type="submit">Reset </button>
 </form>
-<table border="1">
+<table class="tables" border="1">
     <thead>
     <tr>
         <th>Name</th>
@@ -49,5 +54,6 @@
     </c:forEach>
     </tbody>
 </table>
+</div>
 </body>
 </html>
