@@ -23,13 +23,8 @@ public class UserDAOImpl implements UserDAO {
     public void create(User user) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-//        try{
             session.save(user);
-//        } catch (NullPointerException e){
-//            e.getMessage();
-//        } finally {
             transaction.commit();
-//        }
     }
 
     @Override

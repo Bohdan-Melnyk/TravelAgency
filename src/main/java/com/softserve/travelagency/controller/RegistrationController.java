@@ -24,18 +24,17 @@ public class RegistrationController {
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("user", new User());
-
         return "register";
     }
 
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
         user.setStatus(Status.ACTIVE);
         userService.create(user);
-        return "success";
+        return "login";
     }
 
 }

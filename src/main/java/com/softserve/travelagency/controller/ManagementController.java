@@ -1,31 +1,20 @@
 package com.softserve.travelagency.controller;
 
 import com.softserve.travelagency.model.Hotel;
-import com.softserve.travelagency.model.Order;
 import com.softserve.travelagency.model.Room;
-import com.softserve.travelagency.model.User;
 import com.softserve.travelagency.service.HotelService;
 import com.softserve.travelagency.service.OrderService;
 import com.softserve.travelagency.service.RoomService;
 import com.softserve.travelagency.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Controller
 @RequestMapping("/management")
@@ -45,20 +34,6 @@ public class ManagementController {
     @Autowired
     private RoomService roomService;
 
- /*   @GetMapping("/addUser")
-    @PreAuthorize("hasAuthority('developers:admin')")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "new-user";
-    }
-
-    @PostMapping("/addUser")
-    @PreAuthorize("hasAuthority('developers:admin')")
-    public String addUserPost(@ModelAttribute("user") User user, BindingResult bindingResult) {
-
-        userService.create(user);
-        return "hello-world";
-    }*/
 
     @GetMapping("/addHotel")
     @PreAuthorize("hasAuthority('developers:admin')")

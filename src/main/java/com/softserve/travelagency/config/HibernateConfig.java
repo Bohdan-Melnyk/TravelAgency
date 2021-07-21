@@ -37,7 +37,7 @@ public class HibernateConfig {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/softservetravelagency"); //DB_CLOSE_DELAY=-1
         dataSource.setUsername("postgres");
-        dataSource.setPassword("4467Igor619!");
+        dataSource.setPassword("postgres");
 
         return dataSource;
     }

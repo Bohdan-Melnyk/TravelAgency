@@ -23,13 +23,8 @@ public class OrderDAOImpl implements OrderDAO {
     public void create(Order order) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-//        try {
             session.save(order);
-//        } catch (NullPointerException e){
-//            e.getMessage();
-//        } finally {
             transaction.commit();
-//        }
     }
 
     @Override

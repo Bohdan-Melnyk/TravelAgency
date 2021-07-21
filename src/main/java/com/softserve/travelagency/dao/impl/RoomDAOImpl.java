@@ -1,7 +1,6 @@
 package com.softserve.travelagency.dao.impl;
 
 import com.softserve.travelagency.dao.RoomDAO;
-import com.softserve.travelagency.model.Order;
 import com.softserve.travelagency.model.Room;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
@@ -12,10 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Repository
@@ -28,13 +24,8 @@ public class RoomDAOImpl implements RoomDAO {
     public void create(Room room) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-//        try {
         session.save(room);
-//        } catch (NullPointerException e){
-//            e.getMessage();
-//        } finally {
         transaction.commit();
-//        }
     }
 
     @Override

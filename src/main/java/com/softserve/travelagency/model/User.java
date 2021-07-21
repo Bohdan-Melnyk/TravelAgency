@@ -1,6 +1,5 @@
 package com.softserve.travelagency.model;
 
-//import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,9 +37,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-//    @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}",
-//            message = "Must be minimum 6 characters, at least one letter and one number")
-    @Column(name = "password", nullable = false, unique = true)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "owner")

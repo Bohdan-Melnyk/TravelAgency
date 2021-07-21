@@ -1,6 +1,5 @@
 package com.softserve.travelagency.controller;
 
-import com.softserve.travelagency.model.User;
 import com.softserve.travelagency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

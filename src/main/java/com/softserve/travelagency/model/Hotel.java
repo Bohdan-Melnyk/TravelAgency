@@ -30,7 +30,7 @@ public class Hotel {
     private String city;
 
     @Size(min = 3, max = 120, message = "Invalid hotel name")
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "hotelinroom", cascade = CascadeType.ALL)
