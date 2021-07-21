@@ -5,6 +5,10 @@
 <html>
 <head>
     <title>Rooms</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
 <%@include file="/header.html" %>

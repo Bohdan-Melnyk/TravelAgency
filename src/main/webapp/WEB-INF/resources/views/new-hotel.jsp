@@ -5,10 +5,18 @@
 <html>
 <head>
     <title>New Hotel</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <%@include file="/header.html" %>
+
+<div class="login-page">
+    <div class="form">
 <form:form action="/management/addHotel" method="post" modelAttribute="hotel">
+
+    <h2>Please Add hotel</h2>
     <p>
     <div style="color:red;">${error.defaultMessage}</div>
 
@@ -28,5 +36,8 @@
     </p>
     <button type="submit">Add a hotel</button>
 </form:form>
+    </div>
+</div>
+
 </body>
 </html>

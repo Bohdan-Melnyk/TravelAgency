@@ -1,15 +1,22 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Orers</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
 <%@include file="/header.html" %>
+
+<div class="form_table">
 <h1>Orders for ${user.firstName} ${user.lastName}</h1>
 <br>
-<table border="1">
+<table class="tables" border="1">
     <thead>
     <tr>
         <th>Order Id</th>
@@ -34,5 +41,6 @@
     </sf:form>
 </c:forEach>
 </table>
+</div>
 </body>
 </html>

@@ -2,28 +2,32 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <html>
 <head>
     <title>Add room</title>
+
+    <spring:url value="/resources/css/login.css" var="loginCss"/>
+    <link type="text/css" href="${loginCss}" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 <%@include file="/header.html" %>
+<div class="login-page">
+    <div class="form">
 <form:form action="/management/addRoom" method="post" modelAttribute="room">
     <p>${message}</p>
-    <table>
-        <div>
-            <label for="hotelName">Hotel</label>
-            <select id="hotelName" name="hotelName">
+
+    <div class="form-control">
+            <label sfor="hotelName"><b>Hotel</b></label>
+            <select style="font-family: Roboto, sans-serif" id="hotelName" name="hotelName">
                 <c:forEach var="hotel" items="${hotels}">
-                    <option value="${hotel.name}">${hotel.name}</option>
+                    <option style="font-family: Roboto, sans-serif" value="${hotel.name}">${hotel.name}</option>
                 </c:forEach>
             </select>
-        </div>
+        <p>  </p>
 
-        <div>
+
             <c:choose>
                 <c:when test="${numberError.defaultMessage.contains('Failed to convert property value of')}">
                     <div style="color:red;">Invalid type, please enter a number</div>
@@ -34,9 +38,9 @@
             </c:choose>
             <label for="number">Number</label>
             <form:input path="number" id="Number"/>
-        </div>
 
-        <div>
+
+
             <c:choose>
                 <c:when test="${priceError.defaultMessage.contains('Failed to convert property value of')}">
                     <div style="color:red;">Invalid type, please enter a number</div>
@@ -47,12 +51,12 @@
             </c:choose>
             <label for="prise">Price</label>
             <form:input path="prise" id="Price"/>
-        </div>
 
-        <tr>
-            <td><input type="submit" value="Add a room"/></td>
-        </tr>
-    </table>
+
+        <button type="submit">Add a room</button>
+    </div>
 </form:form>
+    </div>
+</div>
 </body>
 </html>
