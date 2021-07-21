@@ -22,20 +22,19 @@
 
             <h2>Please Add hotel</h2>
             <p>
-            <div style="color:red;">${error.defaultMessage}</div>
-
-            <br>
+                <form:errors path="country"/>
+                <br>
             <label for="name">Name</label>
             <form:input path="name" id="Name"/>
             </p>
             <p>
-            <div style="color:red;">${countryError.defaultMessage}</div>
-            </label for="country">Country</label>
+                <form:errors path="name"/>
+                </label for="country">Country</label>
             <form:input path="country" id="Country"/>
             </p>
             <p>
-            <div style="color:red;">${cityError.defaultMessage}</div>
-            <label for="city">City</label>
+                <form:errors path="city"/>
+                <label for="city">City</label>
             <form:input path="city" id="city"/>
             </p>
             <button type="submit">Add a hotel</button>
