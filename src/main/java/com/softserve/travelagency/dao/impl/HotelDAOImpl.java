@@ -23,13 +23,8 @@ public class HotelDAOImpl implements HotelDAO {
     public void create(Hotel hotel) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-//        try {
         session.save(hotel);
-//        } catch (NullPointerException e){
-//            e.getMessage();
-//        } finally {
         transaction.commit();
-//        }
     }
 
     @Override
@@ -39,7 +34,7 @@ public class HotelDAOImpl implements HotelDAO {
         try {
             Hotel hotel = session.find(Hotel.class, id);
             return hotel;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.getMessage();
             return null;
         } finally {
@@ -55,7 +50,7 @@ public class HotelDAOImpl implements HotelDAO {
         try {
             Hotel hotel = session.find(Hotel.class, id);
             session.delete(hotel);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.getMessage();
         } finally {
             transaction.commit();
@@ -69,7 +64,7 @@ public class HotelDAOImpl implements HotelDAO {
         try {
             Query query = session.createQuery("from Hotel ");
             return query.getResultList();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return new ArrayList<>();
         } finally {
             transaction.commit();
@@ -85,7 +80,7 @@ public class HotelDAOImpl implements HotelDAO {
             Query query = session.createQuery("from Hotel U where U.name  =:name");
             query.setParameter("name", name);
             return (Hotel) query.getSingleResult();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return null;
         } finally {
             transaction.commit();
@@ -98,9 +93,9 @@ public class HotelDAOImpl implements HotelDAO {
         Transaction transaction = session.beginTransaction();
         try {
             Query query = session.createQuery("from Hotel H where lower(H.country) like lower(:country)");
-            query.setParameter("country", country+"%");
+            query.setParameter("country", country + "%");
             return query.getResultList();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return new ArrayList<>();
         } finally {
             transaction.commit();
